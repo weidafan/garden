@@ -1,0 +1,53 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Smart Home</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+</head>
+	
+<body>
+
+		<% if (!user) { %>
+			<h1 class = login_msg>Welcome! Please <a href="/login">log in</a>.</h1>
+		<% } else { %>
+	<nav id = "navigation">
+		<ul>
+			<li class="nav-li"><a href="/index">Home</a></li>
+			<li class="nav-li"><a href="/temperature">Temperature Sensor</a></li>
+			<li class="nav-li"><a href="/LED">LED OnOFF</a></li>
+			<li class="nav-li"><a href="/humidity">Humidity</a></li>
+			<!-- <li   <div class="dropdown">
+					<button class="dropbtn">Dropdown
+					  <i class="fa fa-caret-down"></i>
+					</button>
+					<div class="dropdown-content">
+					  <a href="#">Link 1</a>
+					  <a href="#">Link 2</a>
+					  <a href="#">Link 3</a>
+					</div>
+				  </div>
+			</li> -->
+		</ul>
+	</nav>
+		
+	<div id="jumbo">
+		<p></p>
+	</div>
+	
+	<main class="info">
+
+	<h2>Hello, <%= user.username %> Welcome to Web Of Thing</h2>
+
+	<h2>author: Weida Fan , Phil</h2>
+	<h3>date:11/3/2017</h3><br>
+</main>
+<footer>
+	
+</footer>
+<% } %>
+</body>
+
+</html>

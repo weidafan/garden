@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Smart Home</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"> </script>
+    </script>
+</head>
+	
+<body>
+        <% if (!user) { %>
+			<h1 class = login_msg>Welcome! Please <a href="/login">log in</a>.</h1>
+		<% } else { %>
+	<nav id = "navigation">
+		<ul>
+			<li class="nav-li"><a href="/index">Home</a></li>
+			<li class="nav-li"><a href="/temperature">Temperature Sensor</a></li>
+			<li class="nav-li"><a href="/LED">LED OnOFF</a></li>
+			<li class="nav-li"><a href="/humidity">Humidity</a></li>
+		</ul>
+	</nav>
+    <div id="jumbo">
+            <p></p>
+        </div>
+        
+	<main class="info">
+	<h2>author: Weida Fan , Phil</h2>
+	<h3>date:11/3/2017</h3><br>
+        <h1>Temperature</h1>
+        <p>The current Temperature is : <%= temperature.value %></p>
+        <form action="/update_temperature" method="POST">
+            <button type="submit">Update Temperature reading</button>
+          </form>
+	</main>
+	<footer>
+
+    </footer>
+    <% } %>
+</body>
+
+</html>
