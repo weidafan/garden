@@ -32,6 +32,10 @@ nav {
 	padding-left: 20px;
 }
 
+.floatleft{
+	float:left;
+	padding-right: 20px;
+}
 #intel {
 	border-radius: 50%;
 }
@@ -82,13 +86,6 @@ ul {
 	padding: 0.5em;
 
 }
-
-video {
-	float: right;
-	margin-left: 50px;
-	position: fixed;
-}
-
 
 
 nav li:hover {

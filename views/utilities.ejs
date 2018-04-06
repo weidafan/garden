@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js">
+
+    </script>
+
+    <title>Smart Home</title>
+</head>
+<link rel="stylesheet" type="text/css" href="style.css">
+<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
+<body>
+    <% if (!user) { %>
+        <h1 class=l ogin_msg>Welcome! Please <a href="/login">log in</a>.</h1>
+        <% } else { %>
+            <nav id="navigation">
+                <ul>
+                    <li class="nav-li"><a href="/index">Home</a></li>
+                    <li class="nav-li"><a href="/temperature">Temperature Sensor</a></li>
+                    <li class="nav-li"><a href="/LED">LED OnOFF</a></li>
+                    <li class="nav-li"><a href="/humidity">Humidity</a></li>
+                    <li class="nav-li"><a href="/logout">Log out</a></li>
+
+                </ul>
+            </nav>
+
+            <div id="jumbo">
+                <p></p>
+            </div>
+
+            <main class="info">
+                <div class="floatleft">
+                    <h1>Light Intensity</h1>
+                    <p>The Light Intensity is :
+                        <%= resources.pi.sensors.light.value%>
+                    </p>
+                </div>
+                <div class="floatright">
+                    <h1>Humidity</h1>
+                    <p>The humidity is :
+                        <%= resources.pi.sensors.humidity.value%>
+                    </p>
+                    <p> the valve status is :
+                        <%= resources.pi.actuators.valve.status%>
+                    </p>
+                </div>
+                <div>
+                    <form action="/openValve" method="POST">
+                        <button type="submit">Press to Turn valve onOff</button>
+                    </form>
+                    <form action="/update_humidity" method="POST">
+                        <button type="submit">Update Humidity reading</button>
+                    </form>
+                    <h1>Temperature</h1>
+                    <p>The current Temperature is :
+                        <%= temperature.value %>
+                    </p>
+                    <form action="/update_temperature" method="POST">
+                        <button type="submit">Update Temperature reading</button>
+                    </form>
+                </div>
+            </main>
+            <footer>
+                <h3>author: Weida Fan , Phil</h3>
+                <h3>date:11/3/2017</h3><br>
+            </footer>
+            <% } %>
+</body>
+
+</html>

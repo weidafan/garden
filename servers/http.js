@@ -98,6 +98,11 @@ app.get('/',
 function(req, res) {
   res.render('login');
 })
+app.get('/utilities',
+require('connect-ensure-login').ensureLoggedIn(),
+function(req, res) {
+  res.render('utilities');
+})
 
 app.get('/login',
 function(req, res) {
@@ -122,30 +127,30 @@ app.get('/humidity', (req, res) => {
   // res.sendFile(__dirname + '/index.html')
   // Note: __dirname is directory that contains the JavaScript source code. Try logging it and see what you get!
     // renders index.ejs. humidity is the variable name in ejs. pass the nodejs resource humdity to ejs.
-    res.render('humidity.ejs', {user: req.user,resources: resources})
+    res.render('utilities.ejs', {user: req.user,resources: resources})
 })
 app.get('/temperature', (req, res) => {
   require('connect-ensure-login').ensureLoggedIn(),
   // res.sendFile(__dirname + '/index.html')
   // Note: __dirname is directory that contains the JavaScript source code. Try logging it and see what you get!
     // renders index.ejs. temperature is the variable name in ejs. pass the nodejs resource temp to ejs.
-    res.render('temperature.ejs', {user: req.user,temperature: resources.pi.sensors.temperature})
+    res.render('utilities.ejs', {user: req.user,temperature: resources.pi.sensors.temperature})
 })
 app.get('/LED', (req, res) => {
   require('connect-ensure-login').ensureLoggedIn(),
   // res.sendFile(__dirname + '/index.html')
   // Note: __dirname is directory that contains the JavaScript source code. Try logging it and see what you get!
     // renders index.ejs
-    res.render('LED.ejs', {user: req.user,LED_STATUS: resources.pi.actuators.leds})
+    res.render('utilities.ejs', {user: req.user,LED_STATUS: resources.pi.actuators.leds})
 
 })
-app.post('/quotes', (req, res) => {
-    db.collection('temperature').save(req.body, (err, result) => {
-    if (err) return console.log(err)
-    console.log('saved to database')
-    res.redirect('/')
-  })
-})
+// app.post('/quotes', (req, res) => {
+//     db.collection('temperature').save(req.body, (err, result) => {
+//     if (err) return console.log(err)
+//     console.log('saved to database')
+//     res.redirect('/')
+//   })
+// })
 
 app.post('/login', 
 passport.authenticate('local', { failureRedirect: '/login' }),
@@ -156,35 +161,20 @@ function(req, res) {
 //     res.sendFile('index.html', { root: './resources' });
 // });
 app.post('/update_humidity',(req, res) => {
-     res.redirect('/humidity')
+     res.redirect('/utilities')
 })
 app.post('/update_temperature',(req, res) => {
-  res.redirect('/temperature')
+  res.redirect('/utilities')
 })
 app.post('/openValve',(req, res) => {
-  if(resources.pi.actuators.valve.status){
-    resources.pi.actuators.valve.status= false;
-    // res.send('water valve is off');
-     res.redirect('/humidity')
-  }
-  else{
-    resources.pi.actuators.valve.status= true;
-    // res.send('water valve is on');
-  }
+    resources.pi.actuators.valve.status= !resources.pi.actuators.valve.status;
     console.log("VALVE STATUS CHANGE TO "+resources.pi.actuators.valve.status);
-    res.redirect('/humidity')
+    res.redirect('/utilities')
 })
 app.post('/openLED',(req, res) => {
-  if(resources.pi.actuators.leds.value){
-    resources.pi.actuators.leds.value= false;
-    // res.send('water valve is off');
-  }
-  else{
-    resources.pi.actuators.leds.value= true;
-    // res.send('water valve is on');
-  }
+    resources.pi.actuators.leds.value= !resources.pi.actuators.leds.value;
     console.log("LED STATUS CHANGE TO "+resources.pi.actuators.leds.value);
-    res.redirect('/LED')
+    res.redirect('/utilities')
 })
 // app.get('/pi/sensors/temperature', function(req, res){
 //   res.sendFile('temperature.html', { root: './resources' });
